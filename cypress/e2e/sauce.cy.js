@@ -76,7 +76,10 @@ describe('login',()=>{
         cy.botao_voltar_para_a_tela_inicial()
     })
 
-
+    it('deve realizar o login', ()=>{
+        cy.login('standard_user','secret_sauce')
+        cy.url_inicial()
+    })
 
 
 })
