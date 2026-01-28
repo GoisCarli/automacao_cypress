@@ -97,3 +97,10 @@ Cypress.Commands.add('login',(var_usuario, var_senha)=>{
     cy.botao_login()
 })   
 
+Cypress.Commands.add('dados',(var_primeiro_nome, var_ultimo_nome, var_codigo_postal)=>{
+    cy.primeiro_nome(var_primeiro_nome)
+    cy.ultimo_nome(var_ultimo_nome)
+    cy.codigo_postal(var_codigo_postal)
+})   
+
+        
