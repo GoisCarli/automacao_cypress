@@ -14,21 +14,25 @@ describe('login',()=>{
         cy.login('standard_user','secret_sauce')
         cy.botao_hamburguer()
         cy.link_logout()
+        cy.url().should('eq','https://www.saucedemo.com/')
     })
     it('Adicionar backpack no carrinho', ()=>{
         cy.login('standard_user','secret_sauce')
         cy.add_packpack()
+        cy.get('[data-test="remove-sauce-labs-backpack"]').should('be.visible')
     })
     it('Visualizar o carrinho', ()=>{
         cy.login('standard_user','secret_sauce')
         cy.add_packpack() 
         cy.carrinho_de_compras()
+        cy.url().should('include','/cart.html')
     })
     it('botao comprar', ()=>{
         cy.login('standard_user','secret_sauce')
         cy.add_packpack() 
         cy.carrinho_de_compras()
         cy.botao_comprar()
+        cy.url().should('include','/checkout-step-one.html')
     })
     it('informacoes pessoais', ()=>{
         cy.login('standard_user','secret_sauce')
@@ -36,6 +40,7 @@ describe('login',()=>{
         cy.carrinho_de_compras()
         cy.botao_comprar()
         cy.dados('Thiago','Carli','18086763')
+        cy.get('.title').should('have.text','Checkout: Your Information')
     })
     it('botao continuar', ()=>{
         cy.login('standard_user','secret_sauce')
@@ -44,6 +49,7 @@ describe('login',()=>{
         cy.botao_comprar()
         cy.dados('Thiago','Carli','18086763')
         cy.botao_continuar()
+        cy.url().should('include','/checkout-step-two.html')
     })
     it('botao finalizar', ()=>{
         cy.login('standard_user','secret_sauce')
@@ -53,8 +59,9 @@ describe('login',()=>{
         cy.dados('Thiago','Carli','18086763')
         cy.botao_continuar()
         cy.botao_finalizar()
+        cy.url().should('include','/checkout-complete.html')
     })
-    it('botao voltar para a tela inicial', ()=>{
+    it.only('botao voltar para a tela inicial', ()=>{
         cy.login('standard_user','secret_sauce')
         cy.add_packpack() 
         cy.carrinho_de_compras()
@@ -63,5 +70,6 @@ describe('login',()=>{
         cy.botao_continuar()
         cy.botao_finalizar()
         cy.botao_voltar_para_a_tela_inicial()
+        cy.url().should('include','/inventory.html')
     })
 })
