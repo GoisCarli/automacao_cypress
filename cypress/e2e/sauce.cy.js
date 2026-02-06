@@ -2,9 +2,10 @@ describe('login',()=>{
     beforeEach(()=>{
        cy.visit_login()
     })
-    it('deve realizar o login', ()=>{
+    it.only('deve realizar o login', ()=>{
         cy.login('standard_user','secret_sauce')
         cy.url_inicial()
+        cy.screenshot('01-login-realizado') // Captura screenshot
     })
     it('login inválido', ()=>{
         cy.login('standard','secret_sauce')
@@ -61,7 +62,7 @@ describe('login',()=>{
         cy.botao_finalizar()
         cy.url().should('include','/checkout-complete.html')
     })
-    it.only('botao voltar para a tela inicial', ()=>{
+    it('botao voltar para a tela inicial', ()=>{
         cy.login('standard_user','secret_sauce')
         cy.add_packpack() 
         cy.carrinho_de_compras()
