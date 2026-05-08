@@ -14,4 +14,6 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands'
+import './sauce_commands/commands'
+import './parabank_commands/parabankCommands'
+

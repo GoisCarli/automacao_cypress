@@ -2,7 +2,7 @@ describe('login',()=>{
     beforeEach(()=>{
        cy.visit_login()
     })
-    it.only('deve realizar o login', ()=>{
+    it('deve realizar o login', ()=>{
         cy.login('standard_user','secret_sauce')
         cy.url_inicial()
         cy.screenshot('01-login-realizado') // Captura screenshot
