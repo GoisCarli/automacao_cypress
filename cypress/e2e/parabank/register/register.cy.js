@@ -5,7 +5,7 @@ describe ('Register Parabank', () => {
     })
         // Faker para gerar dados aleatórios
 
-        it.only('Registro Com Sucesso', () => { 
+        it('Registro Com Sucesso', () => { 
             const nome = faker.name.firstName()
             const lastName = faker.name.lastName()
             const Street = faker.address.streetName()
