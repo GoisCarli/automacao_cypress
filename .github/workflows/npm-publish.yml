@@ -1,33 +1,38 @@
-# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
-# For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
+# Arquivo de configuração do GitLab CI para Automação Cypress
 
-name: Node.js Package
+stages:
+  - test
 
-on:
-  release:
-    types: [created]
+# Cache para node_modules e binários do Cypress para acelerar as próximas execuções
+cache:
+  key:
+    files:
+      - package-lock.json
+  paths:
+    - .npm/
+    - cache/Cypress/
+    - node_modules/
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - run: npm ci
-      - run: npm test
+variables:
+  npm_config_cache: "$CI_PROJECT_DIR/.npm"
+  CYPRESS_CACHE_FOLDER: "$CI_PROJECT_DIR/cache/Cypress"
 
-  publish-npm:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          registry-url: https://registry.npmjs.org/
-      - run: npm ci
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+cypress-tests:
+  stage: test
+  # Utilizando a imagem oficial do Cypress compatível com a sua versão do package.json (15.9.0)
+  image: cypress/included:15.9.0
+  script:
+    # Instala as dependências do projeto de forma limpa e otimizada para CI
+    - npm ci
+    # Verifica se o Cypress está corretamente instalado e pronto para rodar
+    - npx cypress verify
+    # Executa o script de teste especificado no seu package.json
+    - npm run teste:sauce
+  artifacts:
+    name: "cypress-test-results-$CI_COMMIT_REF_SLUG"
+    when: always
+    paths:
+      - cypress/screenshots/
+      - cypress/videos/
+      - cypress/reports/
+    expire_in: 1 week
