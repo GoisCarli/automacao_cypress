@@ -5,18 +5,20 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "teste:sauce":"cypress run --spec cypress/e2e/sauce/sauce.cy.js"
+    "teste:sauce": "cypress run --spec cypress/e2e/sauce/sauce.cy.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
+    "@faker-js/faker": "^10.4.0",
     "cypress": "^15.9.0",
     "mochawesome": "^7.1.4",
     "mochawesome-merge": "^5.1.1",
     "mochawesome-report-generator": "^6.3.2"
+  },
+  "dependencies": {
+    "faker-br": "^0.5.0"
   }
 }
-
-
